@@ -301,6 +301,14 @@ namespace Windows.UI.Xaml
 					borderThickness = sp.BorderThickness;
 					return true;
 
+				case RelativePanel rp:
+					borderThickness = rp.BorderThickness;
+					return true;
+
+				case Microsoft.UI.Xaml.Controls.LayoutPanel lp:
+					borderThickness = lp.BorderThickness;
+					return true;
+
 				case Control c:
 					borderThickness = c.BorderThickness;
 					return true;
@@ -311,10 +319,6 @@ namespace Windows.UI.Xaml
 
 				case Border b:
 					borderThickness = b.BorderThickness;
-					return true;
-
-				case Panel p:
-					borderThickness = p.BorderThickness;
 					return true;
 			}
 
@@ -334,6 +338,14 @@ namespace Windows.UI.Xaml
 					sp.BorderThickness = borderThickness;
 					return true;
 
+				case RelativePanel rp:
+					rp.BorderThickness = borderThickness;
+					return true;
+
+				case Microsoft.UI.Xaml.Controls.LayoutPanel lp:
+					lp.BorderThickness = borderThickness;
+					return true;
+
 				case Control c:
 					c.BorderThickness = borderThickness;
 					return true;
@@ -344,10 +356,6 @@ namespace Windows.UI.Xaml
 
 				case Border b:
 					b.BorderThickness = borderThickness;
-					return true;
-
-				case Panel p:
-					p.BorderThickness = borderThickness;
 					return true;
 			}
 

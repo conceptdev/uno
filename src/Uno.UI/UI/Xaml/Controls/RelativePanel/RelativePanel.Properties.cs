@@ -1,11 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Uno.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace Windows.UI.Xaml.Controls
 {
 	public partial class RelativePanel
 	{
+		#region BorderBrush DependencyProperty
+
+		public Brush BorderBrush
+		{
+			get => GetBorderBrushValue();
+			set => SetBorderBrushValue(value);
+		}
+
+		private static Brush GetBorderBrushDefaultValue() => SolidColorBrushHelper.Transparent;
+
+		[GeneratedDependencyProperty(ChangedCallbackName = nameof(OnBorderBrushPropertyChanged), Options = FrameworkPropertyMetadataOptions.ValueInheritsDataContext)]
+		public static DependencyProperty BorderBrushProperty { get; } = CreateBorderBrushProperty();
+
+		private void OnBorderBrushPropertyChanged(Brush oldValue, Brush newValue)
+		{
+			BorderBrushInternal = newValue;
+			OnBorderBrushChanged(oldValue, newValue);
+		}
+
+		#endregion
+
+		#region BorderThickness DependencyProperty
+
+		public Thickness BorderThickness
+		{
+			get => GetBorderThicknessValue();
+			set => SetBorderThicknessValue(value);
+		}
+
+		private static Thickness GetBorderThicknessDefaultValue() => Thickness.Empty;
+
+		[GeneratedDependencyProperty(ChangedCallbackName = nameof(OnBorderThicknessPropertyChanged))]
+		public static DependencyProperty BorderThicknessProperty { get; } = CreateBorderThicknessProperty();
+
+		private void OnBorderThicknessPropertyChanged(Thickness oldValue, Thickness newValue)
+		{
+			BorderThicknessInternal = newValue;
+			OnBorderThicknessChanged(oldValue, newValue);
+		}
+
+		#endregion
+
 		#region Panel Alignment relationships
 
 		public static bool GetAlignBottomWithPanel(DependencyObject view)

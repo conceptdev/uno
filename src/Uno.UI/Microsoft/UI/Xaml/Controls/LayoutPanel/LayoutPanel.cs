@@ -6,6 +6,7 @@ using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 
 namespace Microsoft.UI.Xaml.Controls
 {
@@ -27,21 +28,19 @@ namespace Microsoft.UI.Xaml.Controls
 			{
 				OnLayoutChanged(args.OldValue as Layout, args.NewValue as Layout);
 			}
+			else if (dependencyProperty == BorderBrushProperty)
+			{
+				var newValue = (Brush)args.NewValue;
+				BorderBrushInternal = newValue;
+				OnBorderBrushChanged((Brush)args.OldValue, newValue);
+			}
+			else if (dependencyProperty == BorderThicknessProperty)
+			{
+				var newValue = (Thickness)args.NewValue;
+				BorderThicknessInternal = newValue;
+				OnBorderThicknessChanged((Thickness)args.OldValue, newValue);
+			}
 #if USE_INTERNAL_SDK
-	else if (dependencyProperty == s_borderBrushProperty)
-	{
-		if (var panelProtected = try_as<Microsoft.UI.Xaml.Controls.IPanelProtectedFeature_WUXCPreviewTypes>())
-		{
-			panelProtected.BorderBrushProtected(Brush>(args.NewValue()));
-		}
-	}
-	else if (dependencyProperty == s_borderThicknessProperty)
-	{
-		if (var panelProtected = try_as<Microsoft.UI.Xaml.Controls.IPanelProtectedFeature_WUXCPreviewTypes>())
-		{
-			panelProtected.BorderThicknessProtected((Thickness)(args.NewValue()));
-		}
-	}
 	else if (dependencyProperty == s_cornerRadiusProperty)
 	{
 		if (var panelProtected = try_as<Microsoft.UI.Xaml.Controls.IPanelProtectedFeature_WUXCPreviewTypes>())

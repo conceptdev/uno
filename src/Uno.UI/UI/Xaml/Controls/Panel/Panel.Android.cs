@@ -56,8 +56,8 @@ namespace Windows.UI.Xaml.Controls
 				_borderRenderer.UpdateLayer(
 					this,
 					Background,
-					BorderThickness,
-					BorderBrush,
+					BorderThicknessInternal,
+					BorderBrushInternal,
 					CornerRadius,
 					Padding,
 					willUpdateMeasures

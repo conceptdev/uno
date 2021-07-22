@@ -110,18 +110,6 @@ namespace Windows.UI.Xaml.Controls
 
 		#region Padding DependencyProperty
 
-		internal Size BorderAndPaddingSize
-		{
-			get
-			{
-				var border = BorderThickness;
-				var padding = Padding;
-				var width = border.Left + border.Right + padding.Left + padding.Right;
-				var height = border.Top + border.Bottom + padding.Top + padding.Bottom;
-				return new Size(width, height);
-			}
-		}
-
 		public Thickness Padding
 		{
 			get { return (Thickness)this.GetValue(PaddingProperty); }
@@ -142,59 +130,9 @@ namespace Windows.UI.Xaml.Controls
 
 #endregion
 
-		#region BorderThickness DependencyProperty
+		internal Thickness BorderThicknessInternal { get; set; }
 
-		public Thickness BorderThickness
-		{
-			get { return (Thickness)this.GetValue(BorderThicknessProperty); }
-			set { this.SetValue(BorderThicknessProperty, value); }
-		}
-
-		public static DependencyProperty BorderThicknessProperty { get ; } =
-			DependencyProperty.Register(
-				"BorderThickness",
-				typeof(Thickness),
-				typeof(Panel),
-				new FrameworkPropertyMetadata(
-					Thickness.Empty,
-					FrameworkPropertyMetadataOptions.None,
-					(s, e) => ((Panel)s)?.OnBorderThicknessChanged((Thickness)e.OldValue, (Thickness)e.NewValue)
-				)
-			);
-
-		#endregion
-
-		#region BorderBrush Dependency Property
-
-#if XAMARIN_ANDROID
-		private Brush _borderBrushStrongReference;
-#endif
-
-		public Brush BorderBrush
-		{
-			get { return (Brush)this.GetValue(BorderBrushProperty); }
-			set
-			{
-				this.SetValue(BorderBrushProperty, value);
-
-#if XAMARIN_ANDROID
-				_borderBrushStrongReference = value;
-#endif
-			}
-		}
-
-		public static DependencyProperty BorderBrushProperty { get ; } =
-			DependencyProperty.Register(
-				"BorderBrush",
-				typeof(Brush),
-				typeof(Panel),
-				new FrameworkPropertyMetadata(
-					SolidColorBrushHelper.Transparent,
-					FrameworkPropertyMetadataOptions.ValueInheritsDataContext,
-					propertyChangedCallback: (s, e) => ((Panel)s).OnBorderBrushChanged((Brush)e.OldValue, (Brush)e.NewValue)
-				)
-			);
-		#endregion
+		internal Brush BorderBrushInternal { get; set; }
 
 		#region CornerRadius DependencyProperty
 		private static CornerRadius GetCornerRadiusDefaultValue() => CornerRadius.None;
@@ -263,6 +201,6 @@ namespace Windows.UI.Xaml.Controls
 		}
 		partial void OnBorderBrushChangedPartial(Brush oldValue, Brush newValue);
 
-		private protected override Thickness GetBorderThickness() => BorderThickness;
+		private protected override Thickness GetBorderThickness() => BorderThicknessInternal;
 	}
 }
