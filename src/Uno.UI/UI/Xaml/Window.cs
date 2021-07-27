@@ -139,7 +139,7 @@ namespace Windows.UI.Xaml
 		/// <summary>
 		/// Gets the window of the current thread.
 		/// </summary>
-		public static Window Current => InternalGetCurrentWindow();
+		public static Window? Current => InternalGetCurrentWindow();
 
 		public void Activate()
 		{
