@@ -83,5 +83,20 @@ namespace SamplesApp.UITests.Windows_UI_Xaml_Controls.CanvasTests
 				ImageAssert.HasColorAt(screenshot, CanvasBorderGreen3.Right - 1, CanvasBorderGreen3.CenterY, Color.Blue);
 			}
 		}
+
+
+		[Test]
+		[AutoRetry]
+		public void Verify_Canvas_In_Canvas()
+		{
+			Run("UITests.Shared.Windows_UI_Xaml_Controls.Canvas.Canvas_In_Canvas");
+
+			using var screenshot = TakeScreenshot("Rendered");
+
+			var clippedLocation = _app.GetPhysicalRect("CanvasBorderBlue1");
+
+			ImageAssert.HasColorAt(screenshot, clippedLocation.CenterX, clippedLocation.CenterY, Color.Blue);
+		}
+
 	}
 }
